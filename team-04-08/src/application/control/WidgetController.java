@@ -15,14 +15,13 @@ public class WidgetController extends GeneralController{
 	@FXML TextField commentBox;
 	
 	
-	
 	/**
 	 * Initializes the dropDownBox with all possible job activities.
 	 */
 	@FXML
 	private void initialize() {
 		ObservableList<String> validActivities = FXCollections.observableList(PeerMentorLog.getValidActivities());
-		dropDownBox.setItems(validActivities);
+		dropDownBox.setItems(validActivities);	
 	}
 	
 	/**
@@ -60,6 +59,8 @@ public class WidgetController extends GeneralController{
 		dropDownBox.setValue(null);
 		commentBox.setText(null);
 		timeBox.setText(null);
+		
+		saveLogger(peerMentorLogger);
 	}
 
 	public void openLoggerReport() {

@@ -1,8 +1,9 @@
 package application.model;
 
+import java.io.Serializable;
 import java.time.Instant;
 
-public interface Log{
+public interface Log extends Serializable{
 	// Getters
 	String 		getJobActivity();
 	Instant		getLogInstant();

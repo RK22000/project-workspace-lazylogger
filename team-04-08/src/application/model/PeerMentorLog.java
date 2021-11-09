@@ -7,6 +7,12 @@ import java.util.List;
 
 public class PeerMentorLog implements Log {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private static String[] jobActivities = {
 			"Mentoring Class",
 			"Facilitating/Planning Workshops", 

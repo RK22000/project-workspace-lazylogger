@@ -1,29 +1,32 @@
 package application.control;
 
+import java.io.File;
 import java.io.IOException;
 
+import application.control.data_layer.LoggerInputStream;
+import application.control.data_layer.LoggerOutputStream;
 import application.model.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public abstract class GeneralController {
+public class GeneralController {
+	
+	private File file = new File("data/saveFile");
+	private LoggerOutputStream los = new LoggerOutputStream(file);
+	private LoggerInputStream  lis = new LoggerInputStream(file);
 	
 	protected Logger peerMentorLogger = application.Main.mainLogger;
 	private Stage mainWindow = application.Main.mainWindow;
-	private Pane mainWidgetPane = application.Main.mainWidgetPain;
-	
 	// Variables to calculate displacement for drag event.
 		private double xOffSet = 0;
 		private double yOffset = 0;
 	
 	protected void openReportView() {
 		try {
-			VBox root = (VBox)FXMLLoader.load(getClass().getResource("../view/widgets/LoggerReportView.fxml"));
+			VBox root = (VBox)FXMLLoader.load(getClass().getResource("../view/LoggerReportView.fxml"));
 			Scene scene = new Scene(root, root.getMaxWidth(), root.getMaxHeight());
 			mainWindow.setScene(scene);
 //			mainWindow.initStyle(StageStyle.DECORATED);
@@ -34,7 +37,7 @@ public abstract class GeneralController {
 		}	
 	}
 	
-	protected void openWidgetView() {
+	public void openWidgetView() {
 		GridPane root;
 		try {
 			root = (GridPane)FXMLLoader.load(getClass().getResource("../view/widgets/Widget2.fxml"));
@@ -56,5 +59,15 @@ public abstract class GeneralController {
 		}
 		
 		
+	}
+
+	public Logger getLogger() {
+		Logger logger = lis.read();
+		if (logger != null) return logger;
+		else return new Logger();
+	}
+	
+	protected boolean saveLogger(Logger logger) {
+		return los.save(logger);
 	}
 }
