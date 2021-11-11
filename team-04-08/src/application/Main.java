@@ -5,6 +5,7 @@ import application.model.Logger;
 import javafx.application.Application;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 	
@@ -24,8 +25,9 @@ public class Main extends Application {
 		mainWindow = primaryStage;
 		GeneralController controller = new GeneralController();
 		mainLogger = controller.getLogger();
+		primaryStage.initStyle(StageStyle.UNDECORATED);
 		controller.openWidgetView();
-		primaryStage.show();
+//		primaryStage.show();
 	}
 	
 	public static void main(String[] args) {
