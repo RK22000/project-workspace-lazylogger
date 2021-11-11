@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="CENTER" hgap="3.0" style="-fx-border-color: deepblue deepblue; -fx-background-color: rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.WidgetController">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="21.0" prefWidth="104.0" text="Elapsed time" textFill="#fbf3e9" GridPane.rowIndex="2">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <TextField fx:id="timeBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="148.0" promptText="In minutes" style="-fx-background-color: #fbf3e9#fbf3e9; -fx-cursor: text;" GridPane.rowIndex="3">
+         <font>
+            <Font size="11.0" />
+         </font></TextField>
+      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#recordTimeLog" style="-fx-background-color: black; -fx-cursor: hand;" text="Log Activity" textAlignment="CENTER" textFill="#fbf3e9" GridPane.columnSpan="2" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="12.0" />
+         </font></Button>
+      <ChoiceBox fx:id="dropDownBox" maxWidth="1.7976931348623157E308" prefHeight="15.0" prefWidth="59.0" style="-fx-background-color: #fbf3e9#fbf3e9;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label maxWidth="1.7976931348623157E308" text="Job Activity" textFill="#fbf3e9" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font size="11.0" />
+         </font></Label>
+      <Label maxWidth="1.7976931348623157E308" text="Lazy Logger" textAlignment="CENTER" textFill="#fbf3e9" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="commentBox" promptText="Comment" style="-fx-background-color: #fbf3e9#fbf3e9; -fx-cursor: text;" GridPane.columnSpan="2" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets top="4.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <AnchorPane prefHeight="0.0" prefWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <Button layoutX="110.0" layoutY="62.0" mnemonicParsing="false" onAction="#openLoggerReport" prefHeight="20.0" prefWidth="58.0" style="-fx-background-color: black; -fx-cursor: hand;" text="View Logs" textFill="#fbf3e9" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+   </padding>
+</GridPane>
