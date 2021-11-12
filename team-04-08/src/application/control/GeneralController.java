@@ -48,7 +48,7 @@ public class GeneralController {
 	public void openWidgetView() {
 		GridPane root;
 		try {
-			root = (GridPane)FXMLLoader.load(getClass().getResource("../view/widgets/Widget2.fxml"));
+			root = (GridPane)FXMLLoader.load(getClass().getResource("../view/widgets/widget3.fxml"));
 			root.setOnMousePressed(mouseEvent -> {
 				xOffSet = mouseEvent.getSceneX();
 				yOffset = mouseEvent.getSceneY();
