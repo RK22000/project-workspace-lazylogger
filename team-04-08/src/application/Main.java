@@ -3,7 +3,6 @@ package application;
 import application.control.GeneralController;
 import application.model.Logger;
 import javafx.application.Application;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -11,7 +10,7 @@ public class Main extends Application {
 	
 	public static Stage mainWindow;
 	public static Logger mainLogger;
-	public static Pane mainWidgetPain;
+//	public static Pane mainWidgetPain;
 	
 	
 	/**
