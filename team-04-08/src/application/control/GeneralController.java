@@ -1,7 +1,10 @@
 package application.control;
 
+import java.io.File;
 import java.io.IOException;
 
+import application.control.data_layer.LoggerInputStream;
+import application.control.data_layer.LoggerOutputStream;
 import application.model.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,9 +14,9 @@ import javafx.stage.Stage;
 
 public class GeneralController {
 	
-//	private File file = new File("data/saveFile");
-//	private LoggerOutputStream los = new LoggerOutputStream(file);
-//	private LoggerInputStream  lis = new LoggerInputStream(file);
+	private File file = new File("data/saveFile");
+	private LoggerOutputStream los = new LoggerOutputStream(file);
+	private LoggerInputStream  lis = new LoggerInputStream(file);
 	
 	protected Logger peerMentorLogger = application.Main.mainLogger;
 	private Stage mainWindow = application.Main.mainWindow;
@@ -29,7 +32,7 @@ public class GeneralController {
 			
 			VBox root = (VBox)FXMLLoader.load(getClass().getResource("../view/LoggerReportView.fxml"));
 			Scene scene = new Scene(root, root.getMaxWidth(), root.getMaxHeight());
-//			stage2.setMaximized(true);
+			stage2.setMaximized(true);
 			stage2.setScene(scene);
 			stage2.show();
 			
@@ -71,12 +74,12 @@ public class GeneralController {
 	}
 
 	public Logger getLogger() {
-		/*Logger logger = lis.read();
+		Logger logger = lis.read();
 		if (logger != null) return logger;
-		else*/ return new Logger();
+		else return new Logger();
 	}
 	
 	protected boolean saveLogger(Logger logger) {
-		return false; //los.save(logger);
+		return los.save(logger);
 	}
 }
