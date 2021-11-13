@@ -3,15 +3,18 @@ package application.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class Logger extends ArrayList<Log> implements Serializable{
+public class Logger2 extends ArrayList<Log> implements Serializable{
+	
+	private List<String> validActivities;
+	
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Override
 	public boolean add(Log log) {
 		int i = indexOf(log);
 		if(i == -1) {
