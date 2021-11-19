@@ -19,8 +19,8 @@ public class GeneralController {
 	private LoggerOutputStream los = new LoggerOutputStream(file);
 	private LoggerInputStream  lis = new LoggerInputStream(file);
 	
-	//protected Logger peerMentorLogger = application.Main.mainLogger;
-//	protected static Logger2 peerMentorLogger2 = new Logger2(PeerMentorLog.getValidActivities());
+	// protected Logger peerMentorLogger = application.Main.mainLogger;
+	// protected static Logger2 peerMentorLogger2 = new Logger2(PeerMentorLog.getValidActivities());
 	
 	private Stage mainWindow = application.Main.mainWindow;
 	
@@ -46,7 +46,6 @@ public class GeneralController {
 			
 //			mainWindow.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
@@ -55,6 +54,31 @@ public class GeneralController {
 		GridPane root;
 		try {
 			root = (GridPane)FXMLLoader.load(getClass().getResource("../view/widgets/widget2.fxml"));
+			root.setOnMousePressed(mouseEvent -> {
+				xOffSet = mouseEvent.getSceneX();
+				yOffset = mouseEvent.getSceneY();
+			});
+			
+			root.setOnMouseDragged(mouseEvent -> {
+				mainWindow.setX(mouseEvent.getScreenX() - xOffSet);
+				mainWindow.setY(mouseEvent.getScreenY() - yOffset);
+			});
+			Scene scene = new Scene(root, root.getMaxWidth(), root.getMaxHeight());
+//			mainWindow.initStyle(StageStyle.UNDECORATED);
+			mainWindow.setScene(scene);
+			mainWindow.show();
+			stage2.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void openTimerView() {
+		GridPane root;
+		try {
+			root = (GridPane)FXMLLoader.load(getClass().getResource("../view/widgets/TimerViewWidget3.fxml"));
 			root.setOnMousePressed(mouseEvent -> {
 				xOffSet = mouseEvent.getSceneX();
 				yOffset = mouseEvent.getSceneY();

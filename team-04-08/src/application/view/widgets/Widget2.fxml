@@ -48,6 +48,7 @@
       </TextField>
       <AnchorPane prefHeight="0.0" prefWidth="0.0" GridPane.columnIndex="1">
          <children>
+            <Button mnemonicParsing="false" onAction="#openTimerView" text="Timer" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <Button layoutX="110.0" layoutY="62.0" mnemonicParsing="false" onAction="#openLoggerReport" text="View Logs" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="10.0" />
