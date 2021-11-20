@@ -75,7 +75,7 @@ public class Widget3Controller extends WidgetController {
 		}
 		
 		if (minuteDisplay == 0) {
-			minuteDisplay = currentTimeElapsed/60000;
+			timerCounting();
 		}
 		
 		// Only allows users to log events that were at least one minute in length.
@@ -85,7 +85,7 @@ public class Widget3Controller extends WidgetController {
 		}
 		
 		
-		Log newLog = PeerMentorLog.createLog(dropDownBox.getValue(), minuteDisplay, "");
+		Log newLog = PeerMentorLog.createLog(dropDownBox.getValue(), minuteDisplay, commentBox.getText());
 		newLog.setLogDate(LocalDate.now());
 		if (newLog != null)
 			peerMentorLogger.add(newLog);
