@@ -33,7 +33,7 @@ public class GeneralController {
 	protected void openReportView() {
 		try {
 			
-			VBox root = (VBox)FXMLLoader.load(getClass().getResource("../view/LoggerReportView3.fxml"));
+			VBox root = (VBox)FXMLLoader.load(getClass().getResource("../view/LoggerReportView4.fxml"));
 			Scene scene = new Scene(root, root.getMaxWidth(), root.getMaxHeight());
 			stage2.setMaximized(true);
 			stage2.setScene(scene);

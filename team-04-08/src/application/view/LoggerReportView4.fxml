@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.LoggerReportController2">
+   <children>
+      <Button mnemonicParsing="false" onAction="#openLoggerWidget" text="Return" />
+      <TableView fx:id="LogTable">
+        <columns>
+          <TableColumn fx:id="TagColumn" prefWidth="100.0" text="C1" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
