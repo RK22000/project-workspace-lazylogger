@@ -56,6 +56,11 @@ public class DayLog extends TreeMap<String, Log> {
 		}
 	}
 	
+	
+	public LocalDate getDay() {
+	return day;
+}
+
 	public VBox getView(List<String> activities) {
 		VBox root = new VBox();
 		root.setAlignment(Pos.CENTER);
