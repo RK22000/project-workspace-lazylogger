@@ -6,13 +6,16 @@ import java.time.temporal.TemporalAdjusters;
 import application.model.DayLog;
 import application.model.Log;
 import application.model.Logger2;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
@@ -21,6 +24,7 @@ public class LoggerReportController2 extends GeneralController{
 	@FXML TableView<String> LogTable;
 	private LocalDate firstDay;
 	private Logger2 peerMentorLogger;
+	@FXML Label LogDisplay;
 	
 	@FXML
 	private void initialize() {
@@ -47,18 +51,44 @@ public class LoggerReportController2 extends GeneralController{
 		LogTable.setItems(activities);
 		System.out.println(TagColumn.getPrefWidth());
 		
-		firstDay = LocalDate.now();
+		firstDay = LocalDate.parse("2021-11-02");
 		firstDay = LocalDate.of(firstDay.getYear(), firstDay.getMonthValue(), 1);
 		setColumns();
 		
+		LogTable.getFocusModel().focusedCellProperty().addListener(
+				(ChangeListener<? super TablePosition>) new ChangeListener<TablePosition<String, String>>() {
+
+					@Override
+					public void changed(ObservableValue<? extends TablePosition<String, String>> observable,
+							TablePosition<String, String> oldValue, TablePosition<String, String> newValue) {
+						
+						int row = newValue.getRow();
+						int col = newValue.getColumn();
+						
+						
+						LogDisplay.setText(getCellLogString(row, col));
+						
+					}
+					
+				});
+	}
+	
+	private String getCellLogString(int row, int col) {
+		Log log=null;
+		if (LogTable.getItems().size() > row &&
+				LogTable.getColumns().size() > col) {
+			String date = LogTable.getColumns().get(col).getText().substring(0, 10);
+			String activity = LogTable.getItems().get(row);
+			
+			DayLog dayLog = peerMentorLogger.get(date); 
+			if(dayLog == null) return "Empty day";
+			log = dayLog.get(activity);
+			if(log == null) return "Empty Log";		
+			
+		}
 		
-//		TagColumn.setCellFactory(new Callback<CellDataFeatures<String, String>, String>() {
-//
-//			@Override
-//			public String call(CellDataFeatures<String, String> param) {
-//				return param.getValue();
-//			}
-//		});
+		
+		return log.toString();
 	}
 	
 	private void setColumns() {

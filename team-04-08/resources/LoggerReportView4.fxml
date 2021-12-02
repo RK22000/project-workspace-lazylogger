@@ -2,23 +2,30 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.LoggerReportController2">
    <children>
       <Button mnemonicParsing="false" onAction="#openLoggerWidget" text="Return" />
-      <TableView fx:id="LogTable">
-        <columns>
-          <TableColumn fx:id="TagColumn" prefWidth="100.0" text="C1" />
-        </columns>
+      <HBox maxWidth="1.7976931348623157E308">
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </TableView>
+         <children>
+            <TableView fx:id="LogTable" maxWidth="1.7976931348623157E308">
+              <columns>
+                <TableColumn fx:id="TagColumn" prefWidth="100.0" text="C1" />
+              </columns>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </TableView>
+         </children>
+      </HBox>
+      <Label fx:id="LogDisplay" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" />
    </children>
 </VBox>
