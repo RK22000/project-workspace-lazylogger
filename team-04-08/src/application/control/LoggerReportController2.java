@@ -1,5 +1,6 @@
 package application.control;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
@@ -15,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -29,7 +31,7 @@ public class LoggerReportController2 extends GeneralController {
 	TableColumn<String, String> TagColumn;
 	@FXML
 	TableView<String> LogTable;
-	private LocalDate firstDay;
+	private LocalDate focusDay;
 	private Logger2 peerMentorLogger;
 	@FXML
 	Label LogDisplay;
@@ -39,7 +41,7 @@ public class LoggerReportController2 extends GeneralController {
 		peerMentorLogger = getLogger();
 
 		ObservableList<String> activities = FXCollections.observableList(peerMentorLogger.getValidActivities());
-		activities.add("Total");
+		//activities.add("Total");
 
 		TagColumn.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
@@ -57,12 +59,14 @@ public class LoggerReportController2 extends GeneralController {
 					}
 				});
 		TagColumn.setSortable(false);
+		TagColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		
 
 		LogTable.setItems(activities);
+		
 		System.out.println(TagColumn.getPrefWidth());
 
-		firstDay = LocalDate.parse("2021-11-02");
-		firstDay = LocalDate.of(firstDay.getYear(), firstDay.getMonthValue(), 1);
+		focusDay = LocalDate.parse("2021-11-02");
 		setColumns();
 
 		LogTable.getFocusModel().focusedCellProperty().addListener(
@@ -74,8 +78,8 @@ public class LoggerReportController2 extends GeneralController {
 
 						int row = newValue.getRow();
 						int col = newValue.getColumn();
-
-						LogDisplay.setText(getCellLogString(row, col));
+						if(col > 0)
+							LogDisplay.setText(getCellLogString(row, col));
 
 					}
 
@@ -107,7 +111,8 @@ public class LoggerReportController2 extends GeneralController {
 		LogTable.getColumns().clear();
 		LogTable.getColumns().add(firstColumn);
 
-		LocalDate lastDay = firstDay.with(TemporalAdjusters.firstDayOfNextMonth());
+		LocalDate firstDay = focusDay.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+		LocalDate lastDay  = focusDay.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
 		for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
 			final LocalDate colomnDate = date;
