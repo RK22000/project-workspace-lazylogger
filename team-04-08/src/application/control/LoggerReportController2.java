@@ -11,12 +11,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 public class LoggerReportController2 extends GeneralController{
@@ -31,6 +37,7 @@ public class LoggerReportController2 extends GeneralController{
 		peerMentorLogger = getLogger();
 		
 		ObservableList<String> activities = FXCollections.observableList(peerMentorLogger.getValidActivities());
+		activities.add("Total");
 		
 		
 		TagColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String,String>, ObservableValue<String>>() {
@@ -47,6 +54,7 @@ public class LoggerReportController2 extends GeneralController{
 				};
 			}
 		});
+		TagColumn.setSortable(false);
 		
 		LogTable.setItems(activities);
 		System.out.println(TagColumn.getPrefWidth());
@@ -71,6 +79,8 @@ public class LoggerReportController2 extends GeneralController{
 					}
 					
 				});
+	
+		LogTable.setEditable(true);
 	}
 	
 	private String getCellLogString(int row, int col) {
@@ -117,7 +127,13 @@ public class LoggerReportController2 extends GeneralController{
 					};
 				}
 			});
+			
+			entryColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+			entryColumn.setSortable(false);
 			LogTable.getColumns().add(entryColumn);
+			
+			
+			//entryColumn.addEventHandler(MouseEvent.MOUSE_CLICKED, EventHandler<E>);
 		}
 		
 		/*
