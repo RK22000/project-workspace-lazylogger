@@ -55,6 +55,7 @@ public class Widget3Controller extends WidgetController {
 		}
 		startBtn.setVisible(false);
 		stopBtn.setVisible(true);
+		timeDisplay.setText("Running");
 		startTime = System.currentTimeMillis();
 	}
 	
@@ -74,6 +75,7 @@ public class Widget3Controller extends WidgetController {
 	
 	public void resumeTimer() {
 		swapResumeStopStatus();
+		timeDisplay.setText("Running");
 		resumeTime = System.currentTimeMillis();
 	}
 	
@@ -108,9 +110,10 @@ public class Widget3Controller extends WidgetController {
 		newLog.setLogDate(LocalDate.now());
 		if (newLog != null)
 			System.out.println("New log created: \n" + newLog);
-//			peerMentorLogger.add(newLog);
+			peerMentorLogger.add(newLog);
 		System.out.println("Recorded log:\n" + peerMentorLogger);
 		
+		// Reset all values to avoid conflicting data.
 		dropDownBox.setValue(null);
 		commentBox.setText(null);
 		currentTimeElapsed = 0;
@@ -122,7 +125,7 @@ public class Widget3Controller extends WidgetController {
 		resumeBtn.setVisible(false);
 		startBtn.setVisible(true);
 		
-//		saveLogger(peerMentorLogger);
+		saveLogger(peerMentorLogger);
 	}
 	
 	public void openOtherLoggerWidget() {
