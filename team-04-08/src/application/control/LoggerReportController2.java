@@ -42,7 +42,7 @@ public class LoggerReportController2 extends GeneralController {
 
 	private final String TOTAL = "Total";
 	@FXML DatePicker focusPicker;
-	private final String DATE_FORMAT = "d MMM uuuu";
+	private final String DATE_FORMAT = "d MMM, uuuu";
 	private StringConverter<LocalDate> dateStringConverter = new StringConverter<LocalDate>() {
 
 		private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern(DATE_FORMAT);
@@ -124,7 +124,8 @@ public class LoggerReportController2 extends GeneralController {
 	private String getCellLogString(int row, int col) {
 		Log log = null;
 		if (LogTable.getItems().size() > row && LogTable.getColumns().size() > col) {
-			String date = LogTable.getColumns().get(col).getText().substring(0, 10);
+			LocalDate localDate = dateStringConverter.fromString(LogTable.getColumns().get(col).getText().substring(0, 12));
+			String date = localDate.toString();
 			String activity = LogTable.getItems().get(row);
 
 			DayLog dayLog = peerMentorLogger.get(date);
@@ -150,7 +151,7 @@ public class LoggerReportController2 extends GeneralController {
 		for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
 			// First set up the Column for the particular day
 			final LocalDate colomnDate = date;
-			TableColumn<String, Integer> entryColumn = new TableColumn<>(date + "\n" + date.getDayOfWeek());
+			TableColumn<String, Integer> entryColumn = new TableColumn<>(dateStringConverter.toString(date) + "\n" + date.getDayOfWeek());
 			entryColumn.setCellValueFactory(
 					new Callback<TableColumn.CellDataFeatures<String, Integer>, ObservableValue<Integer>>() {
 
