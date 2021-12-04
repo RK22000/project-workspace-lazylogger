@@ -62,7 +62,9 @@ public class LoggerReportController2 extends GeneralController {
 		TagColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		
 
-		LogTable.setItems(activities);
+		//LogTable.setItems(activities);
+		LogTable.getItems().addAll(activities);
+		LogTable.getItems().add("Total");
 		
 		System.out.println(TagColumn.getPrefWidth());
 
