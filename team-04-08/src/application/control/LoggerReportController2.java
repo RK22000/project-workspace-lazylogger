@@ -2,6 +2,7 @@ package application.control;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.scene.control.DatePicker;
 
@@ -33,13 +35,37 @@ public class LoggerReportController2 extends GeneralController {
 	TableColumn<String, String> TagColumn;
 	@FXML
 	TableView<String> LogTable;
-	private LocalDate focusDay;
+	//private LocalDate focusDay;
 	private Logger2 peerMentorLogger;
 	@FXML
 	Label LogDisplay;
 
 	private final String TOTAL = "Total";
 	@FXML DatePicker focusPicker;
+	private final String DATE_FORMAT = "d MMM uuuu";
+	private StringConverter<LocalDate> dateStringConverter = new StringConverter<LocalDate>() {
+
+		private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern(DATE_FORMAT);
+		
+		
+		@Override
+		public String toString(LocalDate localDate) {
+			if(localDate==null)
+	            return "";
+	        return dateTimeFormatter.format(localDate);
+		}
+
+
+		@Override
+		public LocalDate fromString(String dateString) {
+			if(dateString==null || dateString.trim().isEmpty())
+	        {
+	            return null;
+	        }
+	        return LocalDate.parse(dateString,dateTimeFormatter);
+		}
+		
+	};
 
 	@FXML
 	private void initialize() {
@@ -72,7 +98,8 @@ public class LoggerReportController2 extends GeneralController {
 		System.out.println(TagColumn.getPrefWidth());
 
 		focusPicker.setValue(LocalDate.now());
-		focusDay = focusPicker.getValue();
+		focusPicker.setConverter(dateStringConverter);
+		//focusDay = focusPicker.getValue();
 		setColumns();
 
 		LogTable.getFocusModel().focusedCellProperty().addListener(
@@ -117,8 +144,8 @@ public class LoggerReportController2 extends GeneralController {
 		LogTable.getColumns().clear();
 		LogTable.getColumns().add(firstColumn);
 
-		LocalDate firstDay = focusDay.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
-		LocalDate lastDay = focusDay.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+		LocalDate firstDay = focusPicker.getValue().with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+		LocalDate lastDay = focusPicker.getValue().with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
 		for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
 			// First set up the Column for the particular day
@@ -248,8 +275,20 @@ public class LoggerReportController2 extends GeneralController {
 	}
 
 	@FXML public void focusOnWeek() {
-		focusDay = focusPicker.getValue();
+		//focusDay = focusPicker.getValue();
 		setColumns();
+	}
+
+	@FXML public void focusToPrevWeek() {
+		LocalDate focusDate = focusPicker.getValue();
+		focusPicker.setValue(focusDate.with(TemporalAdjusters.previous(focusDate.getDayOfWeek())));
+		focusOnWeek();
+	}
+
+	@FXML public void focusToNextWeek() {
+		LocalDate focusDate = focusPicker.getValue();
+		focusPicker.setValue(focusDate.with(TemporalAdjusters.next(focusDate.getDayOfWeek())));
+		focusOnWeek();
 	}
 
 }

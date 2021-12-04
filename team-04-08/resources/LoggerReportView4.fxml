@@ -15,8 +15,10 @@
       <Button mnemonicParsing="false" onAction="#openLoggerWidget" text="Logger Widget" />
       <HBox alignment="CENTER" fillHeight="false" maxWidth="1.7976931348623157E308" prefWidth="200.0">
          <children>
+            <Button mnemonicParsing="false" onAction="#focusToPrevWeek" text="&lt;= Pervious week" />
             <Label text="Week of " />
             <DatePicker fx:id="focusPicker" onAction="#focusOnWeek" />
+            <Button mnemonicParsing="false" onAction="#focusToNextWeek" text="Next Week =&gt;" />
          </children>
       </HBox>
       <TableView fx:id="LogTable" maxWidth="1.7976931348623157E308">
