@@ -36,12 +36,13 @@ public class LoggerReportController2 extends GeneralController {
 	@FXML
 	Label LogDisplay;
 
+	private final String TOTAL = "Total";
+	
 	@FXML
 	private void initialize() {
 		peerMentorLogger = getLogger();
 
 		ObservableList<String> activities = FXCollections.observableList(peerMentorLogger.getValidActivities());
-		//activities.add("Total");
 
 		TagColumn.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
@@ -64,7 +65,7 @@ public class LoggerReportController2 extends GeneralController {
 
 		//LogTable.setItems(activities);
 		LogTable.getItems().addAll(activities);
-		LogTable.getItems().add("Total");
+		LogTable.getItems().add(TOTAL);
 		
 		System.out.println(TagColumn.getPrefWidth());
 
@@ -130,6 +131,11 @@ public class LoggerReportController2 extends GeneralController {
 									DayLog dayLog = peerMentorLogger.get(colomnDate.toString());
 									if (dayLog == null)
 										return null;
+									if (param.getValue().equals(TOTAL)) {
+										Integer duration = null;
+										duration = dayLog.getTotalMinutes();
+										return (duration==0)?null:duration;
+									}
 									Log log = dayLog.get(param.getValue());
 									if (log == null)
 										return null;
@@ -147,23 +153,32 @@ public class LoggerReportController2 extends GeneralController {
 				public void handle(CellEditEvent<String, Integer> event) {
 					Log log = null;
 					DayLog dayLog = peerMentorLogger.get(colomnDate.toString());
+					// This if acts on existing Logs
 					if (dayLog != null) {
 						log = dayLog.get(event.getRowValue());
 						if (log != null) {
-							if (event.getNewValue() == null || event.getNewValue() == 0)
-								dayLog.remove(log.getJobActivity());
-							else
+							if (event.getNewValue() != null && event.getNewValue() != 0)
 								log.setDuration(event.getNewValue());
+							else {
+								dayLog.remove(log.getJobActivity());
+							}
 							saveLogger(peerMentorLogger);
+							LogTable.refresh();
 							return;
 						}
 					}
 					
-					if (event.getNewValue() == null || event.getNewValue() == 0) return;
+					// This if deals with no log before and no log after
+					if (event.getNewValue() == null || event.getNewValue() == 0) {
+						LogTable.refresh();
+						return;
+					}
 
+					// This section deals with Log creation for when Log is made in report
 					log = PeerMentorLog.createLog(event.getRowValue(), event.getNewValue(), "");
 					log.setLogDate(colomnDate);
 					peerMentorLogger.add(log);
+					LogTable.refresh();
 					saveLogger(peerMentorLogger);
 					
 

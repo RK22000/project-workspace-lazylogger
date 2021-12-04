@@ -63,6 +63,13 @@ public class DayLog extends TreeMap<String, Log> {
 		return day;
 	}
 
+	public int getTotalMinutes() {
+		int sum = 0;
+		for (java.util.Map.Entry<String, Log> entry : entrySet()) {
+			sum += entry.getValue().getDuration();
+		}
+		return sum;
+	}
 	public VBox getView(List<String> activities) {
 		VBox root = new VBox();
 		root.setAlignment(Pos.CENTER);
