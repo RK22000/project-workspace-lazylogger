@@ -3,7 +3,7 @@ package application.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public interface Log extends Serializable{
+public interface Log extends Serializable, Cloneable{
 	// Getters
 	String 		getJobActivity();
 	LocalDate		getLogDate();

@@ -3,6 +3,8 @@ package application.control;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.HashMap;
+import java.util.Map;
 
 import application.model.DayLog;
 import application.model.Log;
@@ -16,7 +18,6 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -37,7 +38,7 @@ public class LoggerReportController2 extends GeneralController {
 	Label LogDisplay;
 
 	private final String TOTAL = "Total";
-	
+
 	@FXML
 	private void initialize() {
 		peerMentorLogger = getLogger();
@@ -61,12 +62,11 @@ public class LoggerReportController2 extends GeneralController {
 				});
 		TagColumn.setSortable(false);
 		TagColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		
 
-		//LogTable.setItems(activities);
+		// LogTable.setItems(activities);
 		LogTable.getItems().addAll(activities);
 		LogTable.getItems().add(TOTAL);
-		
+
 		System.out.println(TagColumn.getPrefWidth());
 
 		focusDay = LocalDate.parse("2021-11-02");
@@ -81,7 +81,7 @@ public class LoggerReportController2 extends GeneralController {
 
 						int row = newValue.getRow();
 						int col = newValue.getColumn();
-						if(col > 0)
+						if (col > 0 && col < 8)
 							LogDisplay.setText(getCellLogString(row, col));
 
 					}
@@ -115,9 +115,10 @@ public class LoggerReportController2 extends GeneralController {
 		LogTable.getColumns().add(firstColumn);
 
 		LocalDate firstDay = focusDay.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
-		LocalDate lastDay  = focusDay.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+		LocalDate lastDay = focusDay.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
 		for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
+			// First set up the Column for the particular day
 			final LocalDate colomnDate = date;
 			TableColumn<String, Integer> entryColumn = new TableColumn<>(date + "\n" + date.getDayOfWeek());
 			entryColumn.setCellValueFactory(
@@ -134,7 +135,7 @@ public class LoggerReportController2 extends GeneralController {
 									if (param.getValue().equals(TOTAL)) {
 										Integer duration = null;
 										duration = dayLog.getTotalMinutes();
-										return (duration==0)?null:duration;
+										return (duration == 0) ? null : duration;
 									}
 									Log log = dayLog.get(param.getValue());
 									if (log == null)
@@ -147,6 +148,7 @@ public class LoggerReportController2 extends GeneralController {
 					});
 
 			entryColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
 			entryColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<String, Integer>>() {
 
 				@Override
@@ -167,8 +169,8 @@ public class LoggerReportController2 extends GeneralController {
 							return;
 						}
 					}
-					
-					// This if deals with no log before and no log after
+
+					// This if deals with no log before and no log after, basically no changes
 					if (event.getNewValue() == null || event.getNewValue() == 0) {
 						LogTable.refresh();
 						return;
@@ -176,19 +178,49 @@ public class LoggerReportController2 extends GeneralController {
 
 					// This section deals with Log creation for when Log is made in report
 					log = PeerMentorLog.createLog(event.getRowValue(), event.getNewValue(), "");
+					if (log == null) {LogTable.refresh(); return;}
 					log.setLogDate(colomnDate);
 					peerMentorLogger.add(log);
 					LogTable.refresh();
 					saveLogger(peerMentorLogger);
-					
 
 				}
 			});
 			entryColumn.setSortable(false);
 			LogTable.getColumns().add(entryColumn);
 
-			// entryColumn.addEventHandler(MouseEvent.MOUSE_CLICKED, EventHandler<E>);
 		}
+
+		TableColumn<String, Integer> totalColumn = new TableColumn<>(TOTAL);
+		totalColumn.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<String, Integer>, ObservableValue<Integer>>() {
+
+					@Override
+					public ObservableValue<Integer> call(CellDataFeatures<String, Integer> param) {
+						Map<String, Integer> totalMap = new HashMap<>();
+						LogTable.getItems().forEach(item -> totalMap.put(item, 0));
+
+						for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
+							DayLog columnDay = peerMentorLogger.get(date.toString());
+							if (columnDay == null)
+								continue;
+							columnDay.entrySet().forEach(entry -> totalMap.put(entry.getKey(),
+									totalMap.get(entry.getKey()) + entry.getValue().getDuration()));
+							totalMap.put(TOTAL, totalMap.get(TOTAL) + columnDay.getTotalMinutes());
+						}
+
+						return new ObservableValueBase<Integer>() {
+
+							@Override
+							public Integer getValue() {
+								Integer total = totalMap.get(param.getValue());
+								return (total == 0) ? null : total;
+							}
+						};
+					}
+				});
+
+		LogTable.getColumns().add(totalColumn);
 
 		/*
 		 * peerMentorLogger.entrySet().forEach(entry -> { TableColumn<String, String>
