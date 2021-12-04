@@ -16,19 +16,22 @@ import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
-import javafx.scene.control.DatePicker;
 
 public class LoggerReportController2 extends GeneralController {
 	@FXML
@@ -66,6 +69,8 @@ public class LoggerReportController2 extends GeneralController {
 		}
 		
 	};
+	@FXML TextArea commentBox;
+	@FXML Button commentButton;
 
 	@FXML
 	private void initialize() {
@@ -111,33 +116,45 @@ public class LoggerReportController2 extends GeneralController {
 
 						int row = newValue.getRow();
 						int col = newValue.getColumn();
-						if (col > 0 && col < 8)
-							LogDisplay.setText(getCellLogString(row, col));
+						if (col > 0 && col < 8 && row < LogTable.getItems().size()-1)
+							//LogDisplay.setText(getCellLogString(row, col));
+							displayLog(getCellLog(row, col));
+						else 
+							displayLog(null);
 
 					}
 
 				});
+		displayLog(null);
 
 		LogTable.setEditable(true);
 	}
 
-	private String getCellLogString(int row, int col) {
+		
+	private Log getCellLog(int row, int col) {
 		Log log = null;
 		if (LogTable.getItems().size() > row && LogTable.getColumns().size() > col) {
-			LocalDate localDate = dateStringConverter.fromString(LogTable.getColumns().get(col).getText().substring(0, 12));
+			String stringDate = LogTable.getColumns().get(col).getText().substring(0, 12);
+			if(stringDate.charAt(11) == '\n') stringDate = stringDate.substring(0, 11);
+			System.out.println("Trying to parse " + stringDate);
+			LocalDate localDate = dateStringConverter.fromString(stringDate);
 			String date = localDate.toString();
 			String activity = LogTable.getItems().get(row);
 
 			DayLog dayLog = peerMentorLogger.get(date);
-			if (dayLog == null)
-				return "Empty day";
+			if (dayLog == null) {
+				System.out.println("Empty day");
+				return null;
+			}
 			log = dayLog.get(activity);
-			if (log == null)
-				return "Empty Log";
+			if (log == null) {
+				System.out.println("Empty Log");
+				return null;
+			}
 
 		}
 
-		return log.toString();
+		return log;
 	}
 
 	private void setColumns() {
@@ -290,6 +307,37 @@ public class LoggerReportController2 extends GeneralController {
 		LocalDate focusDate = focusPicker.getValue();
 		focusPicker.setValue(focusDate.with(TemporalAdjusters.next(focusDate.getDayOfWeek())));
 		focusOnWeek();
+	}
+	
+	private void displayLog(Log log) {
+		if(log == null) {
+			LogDisplay.setText("");
+			commentBox.setVisible(false);
+			commentButton.setVisible(false);
+			return;
+		}
+		
+		// Log is not null
+		String display = dateStringConverter.toString(log.getLogDate()) + "\n" + 
+				log.getDuration() + " minutes of " + log.getJobActivity();
+		LogDisplay.setText(display);
+		
+		commentBox.setText(log.getComment());
+		commentBox.setVisible(true);
+		
+		commentBox.textProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				commentButton.setVisible(!newValue.trim().equals(log.getComment()));
+			}
+		});
+		
+		commentButton.setOnMouseClicked(event -> {
+			log.setComment(commentBox.getText());
+			saveLogger(peerMentorLogger);
+			commentButton.setVisible(false);
+		});
 	}
 
 }
