@@ -26,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.scene.control.DatePicker;
 
 public class LoggerReportController2 extends GeneralController {
 	@FXML
@@ -38,6 +39,7 @@ public class LoggerReportController2 extends GeneralController {
 	Label LogDisplay;
 
 	private final String TOTAL = "Total";
+	@FXML DatePicker focusPicker;
 
 	@FXML
 	private void initialize() {
@@ -69,7 +71,8 @@ public class LoggerReportController2 extends GeneralController {
 
 		System.out.println(TagColumn.getPrefWidth());
 
-		focusDay = LocalDate.parse("2021-11-02");
+		focusPicker.setValue(LocalDate.now());
+		focusDay = focusPicker.getValue();
 		setColumns();
 
 		LogTable.getFocusModel().focusedCellProperty().addListener(
@@ -242,6 +245,11 @@ public class LoggerReportController2 extends GeneralController {
 
 	public void openLoggerWidget() {
 		openWidgetView();
+	}
+
+	@FXML public void focusOnWeek() {
+		focusDay = focusPicker.getValue();
+		setColumns();
 	}
 
 }
