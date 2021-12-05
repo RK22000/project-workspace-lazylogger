@@ -162,7 +162,12 @@ public class LoggerReportController2 extends GeneralController {
 		LogTable.getColumns().clear();
 		LogTable.getColumns().add(firstColumn);
 
-		LocalDate firstDay = focusPicker.getValue().with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+		LocalDate firstDay;
+		if(!focusPicker.getValue().getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+			firstDay = focusPicker.getValue().with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+		} else {
+			firstDay = focusPicker.getValue();
+		}
 		LocalDate lastDay = focusPicker.getValue().with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
 		for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
