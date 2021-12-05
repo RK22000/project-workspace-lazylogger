@@ -10,22 +10,37 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.LoggerReportController2">
+<VBox prefHeight="600.0" prefWidth="500.0" style="-fx-border-color: deepblue; -fx-background-color: rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.LoggerReportController2">
    <children>
-      <Button mnemonicParsing="false" onAction="#openLoggerWidget" text="Logger Widget" />
-      <HBox alignment="CENTER" fillHeight="false" maxWidth="1.7976931348623157E308" prefWidth="200.0">
+      <HBox prefHeight="41.0" prefWidth="500.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#focusToPrevWeek" text="&lt;= Pervious week" />
-            <Label text="Week of " />
-            <DatePicker fx:id="focusPicker" onAction="#focusOnWeek" />
-            <Button mnemonicParsing="false" onAction="#focusToNextWeek" text="Next Week =&gt;" />
+            <Pane prefHeight="41.0" prefWidth="8.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Pane prefHeight="7.0" prefWidth="100.0" />
+                  <Button mnemonicParsing="false" onAction="#openLoggerWidget" prefHeight="26.0" prefWidth="113.0" style="-fx-background-color: black;" text="Logger Widget" textFill="#fbf3e9" />
+               </children>
+            </VBox>
          </children>
       </HBox>
-      <TableView fx:id="LogTable" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="300.0">
+      <HBox alignment="CENTER" fillHeight="false" maxWidth="1.7976931348623157E308" prefWidth="200.0">
+         <children>
+            <Pane prefHeight="25.0" prefWidth="17.0" />
+            <Button mnemonicParsing="false" onAction="#focusToPrevWeek" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: black;" text="&lt;= Pervious week" textFill="#fbf3e9" />
+            <Pane prefHeight="25.0" prefWidth="17.0" />
+            <Label prefHeight="17.0" prefWidth="54.0" text="Week of " textFill="#fbf3e9" />
+            <DatePicker fx:id="focusPicker" onAction="#focusOnWeek" />
+            <Pane prefHeight="25.0" prefWidth="19.0" />
+            <Button mnemonicParsing="false" onAction="#focusToNextWeek" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: black;" text="Next Week =&gt;" textFill="#fbf3e9" />
+            <Pane prefHeight="25.0" prefWidth="19.0" />
+         </children>
+      </HBox>
+      <TableView fx:id="LogTable" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="310.0" prefWidth="500.0" style="-fx-background-color: #FFE5B4#FFE5B4;">
         <columns>
-          <TableColumn fx:id="TagColumn" editable="false" prefWidth="400.0" sortable="false" text="Job Activities" />
+          <TableColumn fx:id="TagColumn" editable="false" prefWidth="400.0" sortable="false" style="-fx-background-color: #FFE5B4#FFE5B4;" text="Job Activities" />
         </columns>
          <cursor>
             <Cursor fx:constant="CROSSHAIR" />
@@ -36,11 +51,11 @@
       </TableView>
       <ScrollPane>
          <content>
-            <VBox>
+            <VBox style="-fx-background-color: #FFE5B4#FFE5B4;">
                <children>
-                  <Label fx:id="LogDisplay" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" />
-                  <TextArea fx:id="commentBox" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="100.0" promptText="Enter comments" />
-                  <Button fx:id="commentButton" mnemonicParsing="false" text="Save comment" />
+                  <Label fx:id="LogDisplay" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #FFE5B4#FFE5B4; -fx-border-color: deepblue;" text="Label" />
+                  <TextArea fx:id="commentBox" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="100.0" promptText="Enter comments" style="-fx-background-color: #FFE5B4#FFE5B4;" />
+                  <Button fx:id="commentButton" mnemonicParsing="false" style="-fx-background-color: black;" text="Save comment" textFill="#fbf3e9" />
                </children>
             </VBox>
          </content>
