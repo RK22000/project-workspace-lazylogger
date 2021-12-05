@@ -34,7 +34,7 @@
          <font>
             <Font size="12.0" />
          </font></Label>
-      <TextField fx:id="timeBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="160.0" promptText="In minutes" style="-fx-background-color: #fbf3e9#fbf3e9 #fbf3e9#fbf3e9; -fx-cursor: text;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="timeBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="In minutes" style="-fx-background-color: #fbf3e9#fbf3e9 #fbf3e9#fbf3e9; -fx-cursor: text;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#recordTimeLog" style="-fx-background-color: black; -fx-cursor: hand;" text="Log Activity" textAlignment="CENTER" textFill="#fbf3e9" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets top="5.0" />
@@ -42,7 +42,7 @@
          <font>
             <Font size="12.0" />
          </font></Button>
-      <ChoiceBox fx:id="dropDownBox" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="61.0" style="-fx-background-color: #fbf3e9#fbf3e9 #fbf3e9#fbf3e9; -fx-cursor: hand;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <ChoiceBox fx:id="dropDownBox" maxWidth="1.7976931348623157E308" style="-fx-background-color: #fbf3e9#fbf3e9 #fbf3e9#fbf3e9; -fx-cursor: hand;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Label maxWidth="1.7976931348623157E308" text="Job Activity" textFill="#fbf3e9" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font size="12.0" />
