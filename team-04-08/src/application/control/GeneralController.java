@@ -19,8 +19,6 @@ public class GeneralController {
 	private LoggerOutputStream los = new LoggerOutputStream(file);
 	private LoggerInputStream  lis = new LoggerInputStream(file);
 	
-	//protected Logger peerMentorLogger = application.Main.mainLogger;
-//	protected static Logger2 peerMentorLogger2 = new Logger2(PeerMentorLog.getValidActivities());
 	
 	private Stage mainWindow = application.Main.mainWindow;
 	
@@ -40,13 +38,9 @@ public class GeneralController {
 			stage2.show();
 			
 			
-//			mainWindow.initStyle(StageStyle.DECORATED);
-//			mainWindow.setScene(scene);
 			mainWindow.close();
 			
-//			mainWindow.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
@@ -65,7 +59,6 @@ public class GeneralController {
 				mainWindow.setY(mouseEvent.getScreenY() - yOffset);
 			});
 			Scene scene = new Scene(root, root.getMaxWidth(), root.getMaxHeight());
-//			mainWindow.initStyle(StageStyle.UNDECORATED);
 			mainWindow.setScene(scene);
 			mainWindow.show();
 			stage2.close();

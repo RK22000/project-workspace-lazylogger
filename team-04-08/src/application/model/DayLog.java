@@ -70,39 +70,5 @@ public class DayLog extends TreeMap<String, Log> {
 		}
 		return sum;
 	}
-	public VBox getView(List<String> activities) {
-		VBox root = new VBox();
-		root.setAlignment(Pos.CENTER);
-
-		Label dateBox = new Label();
-		dateBox.setAlignment(Pos.CENTER);
-		dateBox.setText(day.toString().substring(5, 10));
-		root.getChildren().add(dateBox);
-		root.getChildren().add(new Separator());
-
-		Label dayBox = new Label();
-		dayBox.setMinWidth(80);
-		dayBox.setAlignment(Pos.CENTER);
-		// dayBox.setText(LocalDateTime.ofInstant(day,
-		// ZoneId.systemDefault()).getDayOfWeek().toString());
-		dayBox.setText(day.getDayOfWeek().toString());
-		root.getChildren().add(dayBox);
-		root.getChildren().add(new Separator());
-
-		for (String s : activities) {
-			Label durationBox = new Label();
-			durationBox.setAlignment(Pos.CENTER);
-			Log log = get(s);
-			if (log != null) {
-				durationBox.setText(Integer.toString(log.getDuration()));
-			} else {
-				durationBox.setText(" ");
-			}
-			root.getChildren().add(durationBox);
-			root.getChildren().add(new Separator());
-		}
-
-		return root;
-	}
 
 }

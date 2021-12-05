@@ -78,6 +78,7 @@ public class LoggerReportController2 extends GeneralController {
 
 		ObservableList<String> activities = FXCollections.observableList(peerMentorLogger.getValidActivities());
 
+		// Prep the First Column
 		TagColumn.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
 
@@ -96,17 +97,16 @@ public class LoggerReportController2 extends GeneralController {
 		TagColumn.setSortable(false);
 		TagColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-		// LogTable.setItems(activities);
 		LogTable.getItems().addAll(activities);
 		LogTable.getItems().add(TOTAL);
 
-		System.out.println(TagColumn.getPrefWidth());
 
+		// Prep the DatePicker above the LogTable
 		focusPicker.setValue(LocalDate.now());
 		focusPicker.setConverter(dateStringConverter);
-		//focusDay = focusPicker.getValue();
 		setColumns();
 
+		
 		LogTable.getFocusModel().focusedCellProperty().addListener(
 				(ChangeListener<? super TablePosition>) new ChangeListener<TablePosition<String, String>>() {
 
@@ -117,7 +117,6 @@ public class LoggerReportController2 extends GeneralController {
 						int row = newValue.getRow();
 						int col = newValue.getColumn();
 						if (col > 0 && col < 8 && row < LogTable.getItems().size()-1)
-							//LogDisplay.setText(getCellLogString(row, col));
 							displayLog(getCellLog(row, col));
 						else 
 							displayLog(null);
@@ -130,7 +129,7 @@ public class LoggerReportController2 extends GeneralController {
 		LogTable.setEditable(true);
 	}
 
-		
+	// Gets the Log associated with a cell in the LogTable	
 	private Log getCellLog(int row, int col) {
 		Log log = null;
 		if (LogTable.getItems().size() > row && LogTable.getColumns().size() > col) {
@@ -158,10 +157,12 @@ public class LoggerReportController2 extends GeneralController {
 	}
 
 	private void setColumns() {
+		// Clear all but the first column
 		TableColumn<String, ?> firstColumn = LogTable.getColumns().get(0);
 		LogTable.getColumns().clear();
 		LogTable.getColumns().add(firstColumn);
 
+		// Get first and last Day of week to display
 		LocalDate firstDay;
 		if(!focusPicker.getValue().getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
 			firstDay = focusPicker.getValue().with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
@@ -170,6 +171,7 @@ public class LoggerReportController2 extends GeneralController {
 		}
 		LocalDate lastDay = focusPicker.getValue().with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
 
+		// Add columns for each day of the week
 		for (LocalDate date = firstDay; date.isBefore(lastDay); date = date.plusDays(1)) {
 			// First set up the Column for the particular day
 			final LocalDate colomnDate = date;
@@ -244,6 +246,7 @@ public class LoggerReportController2 extends GeneralController {
 
 		}
 
+		// Last column for totals
 		TableColumn<String, Integer> totalColumn = new TableColumn<>(TOTAL);
 		totalColumn.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<String, Integer>, ObservableValue<Integer>>() {
@@ -275,45 +278,33 @@ public class LoggerReportController2 extends GeneralController {
 
 		LogTable.getColumns().add(totalColumn);
 
-		/*
-		 * peerMentorLogger.entrySet().forEach(entry -> { TableColumn<String, String>
-		 * entryColumn = new
-		 * TableColumn<>(entry.getKey()+"\n"+entry.getValue().getDay().getDayOfWeek());
-		 * entryColumn.setCellValueFactory(new
-		 * Callback<TableColumn.CellDataFeatures<String,String>,
-		 * ObservableValue<String>>() {
-		 * 
-		 * @Override public ObservableValue<String> call(CellDataFeatures<String,
-		 * String> param) { return new ObservableValueBase<String>() {
-		 * 
-		 * @Override public String getValue() { Log log =
-		 * entry.getValue().get(param.getValue()); if(log == null) return ""; else
-		 * return log.getDuration()+""; } }; } });
-		 * LogTable.getColumns().add(entryColumn); });
-		 */
 	}
 
 	public void openLoggerWidget() {
 		openWidgetView();
 	}
 
+	// Focuses the Table on the week around the DatePicker date
 	@FXML public void focusOnWeek() {
 		//focusDay = focusPicker.getValue();
 		setColumns();
 	}
 
+	// Moves the focus to the previous week
 	@FXML public void focusToPrevWeek() {
 		LocalDate focusDate = focusPicker.getValue();
 		focusPicker.setValue(focusDate.with(TemporalAdjusters.previous(focusDate.getDayOfWeek())));
 		focusOnWeek();
 	}
 
+	// Moves the focus to the next week
 	@FXML public void focusToNextWeek() {
 		LocalDate focusDate = focusPicker.getValue();
 		focusPicker.setValue(focusDate.with(TemporalAdjusters.next(focusDate.getDayOfWeek())));
 		focusOnWeek();
 	}
-	
+
+	// Displays and preps the Log display/interaction below the LogTable
 	private void displayLog(Log log) {
 		if(log == null) {
 			LogDisplay.setText("");
