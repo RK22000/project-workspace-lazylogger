@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="500.0" style="-fx-border-color: deepblue; -fx-background-color: rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.LoggerReportController2">
+<VBox prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1);" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.control.LoggerReportController2">
    <children>
       <HBox prefHeight="41.0" prefWidth="500.0">
          <children>
@@ -67,7 +67,7 @@
          <content>
             <VBox>
                <children>
-                  <Label fx:id="LogDisplay" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-color: deepblue;" text="Label">
+                  <Label fx:id="LogDisplay" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label">
                      <font>
                         <Font size="12.0" />
                      </font></Label>

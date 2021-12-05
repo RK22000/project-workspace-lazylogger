@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" hgap="3.0" style="-fx-border-color: deepblue deepblue deepblue deepblue; -fx-background-color: rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.WidgetController">
+<GridPane alignment="CENTER" hgap="3.0" style="-fx-background-color: rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1) rgba(22, 60, 91, 1)rgba(22, 60, 91, 1);" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.control.WidgetController">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
