@@ -33,7 +33,7 @@ public class GeneralController {
 	protected void openReportView() {
 		try {
 			
-			VBox root = (VBox)FXMLLoader.load(getClass().getClassLoader().getResource("LoggerReportView4.fxml"));
+			VBox root = (VBox)FXMLLoader.load(getClass().getResource("../view/LoggerReportView4.fxml"));
 			Scene scene = new Scene(root, root.getMaxWidth(), root.getMaxHeight());
 			stage2.setMaximized(true);
 			stage2.setScene(scene);
@@ -54,7 +54,7 @@ public class GeneralController {
 	public void openWidgetView() {
 		GridPane root;
 		try {
-			root = (GridPane)FXMLLoader.load(getClass().getClassLoader().getResource("widget2.fxml"));
+			root = (GridPane)FXMLLoader.load(getClass().getResource("../view/Widget2.fxml"));
 			root.setOnMousePressed(mouseEvent -> {
 				xOffSet = mouseEvent.getSceneX();
 				yOffset = mouseEvent.getSceneY();
