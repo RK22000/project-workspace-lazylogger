@@ -338,6 +338,8 @@ public class LoggerReportController2 extends GeneralController {
 			}
 		});
 		
+		commentButton.setVisible(!commentBox.getText().trim().equals(log.getComment()));
+		
 		commentButton.setOnMouseClicked(event -> {
 			log.setComment(commentBox.getText());
 			saveLogger(peerMentorLogger);
