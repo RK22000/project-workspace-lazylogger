@@ -5,61 +5,77 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <GridPane alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.Widget3Controller">
   <columnConstraints>
-      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
-    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="150.0" />
+      <ColumnConstraints />
+    <ColumnConstraints />
     <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
+    <RowConstraints />
     <RowConstraints vgrow="SOMETIMES" />
-    <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox alignment="CENTER_LEFT" spacing="5.0">
-         <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#openOtherLoggerWidget" text="Switch to Widget 1" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#openLoggerReport" text="View Log" />
-         </children>
+      <Label maxWidth="1.7976931348623157E308" text="Lazy Logger" textAlignment="CENTER">
+         <font>
+            <Font name="System Italic" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="commentBox" maxWidth="1.7976931348623157E308" promptText="Comment" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
-      </VBox>
-      <TextField fx:id="commentBox" promptText="Comment" GridPane.rowIndex="1">
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding></TextField>
-      <Button fx:id="startBtn" alignment="CENTER" mnemonicParsing="false" onAction="#startTimer" prefWidth="145.0" text="Start" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets top="5.0" />
+         </GridPane.margin></TextField>
+      <Button fx:id="startBtn" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#startTimer" prefWidth="145.0" text="Start" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="5.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="stopBtn" alignment="CENTER" mnemonicParsing="false" onAction="#stopTimer" prefWidth="145.0" text="Stop" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Button fx:id="resumeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#resumeTimer" prefWidth="145.0" text="Resume" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Button alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#recordTimeLog" text="Record Log" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Button fx:id="stopBtn" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#stopTimer" text="Stop" GridPane.rowIndex="1">
          <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets right="5.0" />
          </GridPane.margin></Button>
-      <Label fx:id="timeDisplay" alignment="CENTER" text="Time" GridPane.columnIndex="1">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
+      <Button fx:id="resumeBtn" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#resumeTimer" text="Resume" GridPane.rowIndex="1">
          <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </GridPane.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding></Label>
-      <ChoiceBox fx:id="dropDownBox" GridPane.columnIndex="2">
+            <Insets right="5.0" />
+         </GridPane.margin></Button>
+      <Button alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#recordTimeLog" text="Record Log" GridPane.columnSpan="2" GridPane.rowIndex="3">
          <GridPane.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </GridPane.margin></ChoiceBox>
+            <Insets top="5.0" />
+         </GridPane.margin></Button>
+      <ChoiceBox fx:id="dropDownBox" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <AnchorPane prefHeight="0.0" prefWidth="0.0" GridPane.columnIndex="1">
+         <children>
+            <Button mnemonicParsing="false" onAction="#openOtherLoggerWidget" text="Switch to Widget 1" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+            <Label fx:id="timeDisplay" alignment="CENTER" text="Time" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#openLoggerReport" text="View Log" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
