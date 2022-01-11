@@ -230,9 +230,8 @@ public class LoggerReportController2 extends GeneralController {
 					}
 
 					// This section deals with Log creation for when Log is made in report
-					log = peerMentorLogger.getLogMaker().makeLog(event.getRowValue(), colomnDate, event.getNewValue(), ""); //PeerMentorLog.createLog(event.getRowValue(), event.getNewValue(), "");
+					log = peerMentorLogger.getLogMaker().makeLog(event.getRowValue(), colomnDate, event.getNewValue(), "");
 					if (log == null) {LogTable.refresh(); return;}
-					//log.setLogDate(colomnDate);
 					peerMentorLogger.add(log);
 					LogTable.refresh();
 					saveLogger(peerMentorLogger);

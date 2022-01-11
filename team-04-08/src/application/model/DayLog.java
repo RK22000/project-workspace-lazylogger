@@ -1,13 +1,7 @@
 package application.model;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.TreeMap;
-
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.layout.VBox;
 
 /**
  * Model to track all the logs on a particular day. Key is the jobActivity of

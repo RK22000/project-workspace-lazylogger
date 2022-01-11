@@ -65,8 +65,7 @@ public class WidgetController extends GeneralController{
 		}
 		
 		// Input is valid now
-		Log newLog = peerMentorLogger.getLogMaker().makeLog(dropDownBox.getValue(), date, minutes, commentBox.getText());//new BasicLog(dropDownBox.getValue(), minutes, commentBox.getText());
-		//newLog.setLogDate(date);
+		Log newLog = peerMentorLogger.getLogMaker().makeLog(dropDownBox.getValue(), date, minutes, commentBox.getText());
 		if(newLog != null) {
 			peerMentorLogger.add(newLog);
 		}
