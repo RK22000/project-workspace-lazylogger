@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import application.model.Log;
 import application.model.Logger2;
-import application.model.PeerMentorLog;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -66,8 +65,8 @@ public class WidgetController extends GeneralController{
 		}
 		
 		// Input is valid now
-		Log newLog = PeerMentorLog.createLog(dropDownBox.getValue(), minutes, commentBox.getText());
-		newLog.setLogDate(date);
+		Log newLog = peerMentorLogger.getLogMaker().makeLog(dropDownBox.getValue(), date, minutes, commentBox.getText());//new BasicLog(dropDownBox.getValue(), minutes, commentBox.getText());
+		//newLog.setLogDate(date);
 		if(newLog != null) {
 			peerMentorLogger.add(newLog);
 		}

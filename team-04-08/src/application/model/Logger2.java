@@ -12,11 +12,25 @@ import java.util.TreeMap;
  */
 public class Logger2 extends TreeMap<String, DayLog> implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2556802919686325839L;
 	private List<String> validActivities;
+	private LogMaker logMaker;
 	
-	public Logger2(List<String> validActivities) {
+/**
+ * Constructor to create the Logger.
+ * @param validActivities A list of valid activities for the logs in this logger.
+ * @param logMaker A functional object that can make logs. The logMaker need not check if the job activity is valid for this instance of the logger.
+ */
+	public Logger2(List<String> validActivities, LogMaker logMaker) {
 		super();
 		this.validActivities = validActivities;
+		this.logMaker = (jobActivity, date, duration, comment) -> {
+			if(validActivities.contains(jobActivity)) return logMaker.makeLog(jobActivity, date, duration, comment);
+			else throw new IllegalArgumentException("Tried to make a log with an invalid Log Activity for this instance of the Logger");
+		};
 	}
 	
 /**
@@ -28,10 +42,6 @@ public class Logger2 extends TreeMap<String, DayLog> implements Serializable{
 	}
 	
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 /**
  * Method to add a new Log to the logger, or append to an existing log in the logger.
@@ -53,14 +63,12 @@ public class Logger2 extends TreeMap<String, DayLog> implements Serializable{
 		}
 	}
 	
-	
-	
-	
-	public static void main(String[] args) {
-		Log log1 = PeerMentorLog.createLog(PeerMentorLog.validActivities.get(0), 7, "no comment");
-		System.out.println(log1);
-		
-		Log log2 = PeerMentorLog.createLog(PeerMentorLog.validActivities.get(0), 7, "no comment");
-		System.out.println(log1.equals(log2));
+/**
+ * A method to get a LogMaker that will make logs valid for this instance of the logger.
+ * @return A LogMaker that makes valid logs on valid inputs, or throws an exception on invalid input.
+ */
+	public LogMaker getLogMaker() {
+		return logMaker;
 	}
+	
 }

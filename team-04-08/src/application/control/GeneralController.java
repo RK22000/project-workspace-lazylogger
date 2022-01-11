@@ -2,11 +2,14 @@ package application.control;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import application.control.data_layer.LoggerInputStream;
 import application.control.data_layer.LoggerOutputStream;
+import application.model.BasicLog;
 import application.model.Logger2;
-import application.model.PeerMentorLog;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -68,11 +71,25 @@ public class GeneralController {
 		
 		
 	}
+	
+	private static String[] jobActivities = {
+			"Mentoring Class",
+			"Facilitating/Planning Workshops", 
+			"Meeting with Professor", 
+			"Meeting with Supervisor", 
+			"Scheduled Hours / Meeting with Student", 
+			"Publicity Event", 
+			"E-Mails/Administrative Work Not Completed in Scheduled Hours",
+			"Training Projects (If Applicable)", 
+			"Staff Meeting/Training"
+			};
+	static List<String> validActivities = new ArrayList<>(Arrays.asList(jobActivities));
 
 	public Logger2 getLogger() {
 		Logger2 logger = lis.read();
 		if (logger != null) return logger;
-		else return new Logger2(PeerMentorLog.getValidActivities());
+		else return new Logger2(validActivities, 
+				(jobActivity, date, duration, comment) -> new BasicLog(jobActivity, date, duration, comment));
 	}
 	
 	protected boolean saveLogger(Logger2 logger) {

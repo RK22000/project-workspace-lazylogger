@@ -10,13 +10,11 @@ import java.util.Map;
 import application.model.DayLog;
 import application.model.Log;
 import application.model.Logger2;
-import application.model.PeerMentorLog;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ObservableValueBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -232,9 +230,9 @@ public class LoggerReportController2 extends GeneralController {
 					}
 
 					// This section deals with Log creation for when Log is made in report
-					log = PeerMentorLog.createLog(event.getRowValue(), event.getNewValue(), "");
+					log = peerMentorLogger.getLogMaker().makeLog(event.getRowValue(), colomnDate, event.getNewValue(), ""); //PeerMentorLog.createLog(event.getRowValue(), event.getNewValue(), "");
 					if (log == null) {LogTable.refresh(); return;}
-					log.setLogDate(colomnDate);
+					//log.setLogDate(colomnDate);
 					peerMentorLogger.add(log);
 					LogTable.refresh();
 					saveLogger(peerMentorLogger);
